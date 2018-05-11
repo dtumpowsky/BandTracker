@@ -18,7 +18,7 @@ _So far there are no bugs_
 _If you run into a problem, contact us at abc@epicodus.com_
 
 #### Specs
-- 
+-
 ### License
 * This program is free software: you can redistribute it and/or modify
 * it under the terms of the GNU General Public License as published by
@@ -32,5 +32,5 @@ _If you run into a problem, contact us at abc@epicodus.com_
 *
 * You should have received a copy of the GNU General Public License
 * along with this program.  If not, see <http://www.gnu.org/licenses/>.
-* Copyright (c) 2018 _rio atmadja@epicodus_
+* Copyright (c) 2018
 ####
