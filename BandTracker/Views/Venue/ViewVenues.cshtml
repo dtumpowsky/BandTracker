@@ -1,0 +1,33 @@
+@{
+  Layout = "_Layout";
+}
+
+
+@using BandTracker.Models;
+
+<h1>Band Tracker</h1>
+<h2>Venue: @Model["selectedVenue"].GetVenue()</h2>
+<hr />
+@if (@Model["shows"].Count != 0)
+{
+  <h4>Upcoming Shows at this Venue:</h4>
+  <ul>
+    @foreach (var flight in @Model["flights"])
+    {
+      <li>@Band.Find(flight.GetBandId()).GetBand() <a href="/venues/@flight.GetId()/delete">Cancel</a></li>
+    }
+  </ul>
+}
+
+<h4>Add a Band to the Schedule:</h4>
+<form action='/venues/@Model["selectedVenue"].GetId()/bands/new' method='post'>
+  <label for='band-id'>Select known Bands</label>
+  <select id='band-id' name='band-id' type='text'>
+    @foreach (var band in @Model["allBands"])
+    {
+      <option value='@band.GetId()'>@band.GetBand()</option>
+    }
+  </select>
+  <button class="btn btn-primary" type='submit'>Book</button>
+</form>
+<p><a href="/">Return to Main Page</a></p>

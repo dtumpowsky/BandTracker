@@ -25,7 +25,8 @@ namespace BandTracker
 
         public void Configure(IApplicationBuilder app)
         {
-          app.UseDeveloperExceptionPage(); // for debugging
+            app.UseStaticFiles();
+            app.UseDeveloperExceptionPage(); // for debugging
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -34,7 +35,7 @@ namespace BandTracker
             });
             app.Run(async (context) =>
             {
-                    await context.Response.WriteAsync("World Data Apps!");
+                    await context.Response.WriteAsync("Error!");
             });
         }
     }
