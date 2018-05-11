@@ -119,5 +119,95 @@ namespace BandTracker.Models
             }
             return allVenues;
         }
+
+//Find a particular venue from table
+        public static Venue Find(int venueId)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"SELECT * FROM venues WHERE id = (@searchId);";
+
+            MySqlParameter searchId = new MySqlParameter();
+            searchId.ParameterName = "@searchId";
+            searchId.Value = venueId;
+            cmd.Parameters.Add(searchId);
+
+            var rdr = cmd.ExecuteReader() as MySqlDataReader;
+            int id = 0;
+            string venueName = "";
+
+            while(rdr.Read())
+            {
+              id = rdr.GetInt32(0);
+              venueName = rdr.GetString(1);
+            }
+            Venue newVenue = new Venue(venueName, id);
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return newVenue;
+        }
+
+//get bands playing at venue from jointable
+        public List<Show> GetBandsPlayingAtVenue()
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+
+            cmd.CommandText = @"SELECT * FROM shows WHERE venue_id = @ThisVenue;";
+
+
+            MySqlParameter venueIdParameter = new MySqlParameter();
+            venueIdParameter.ParameterName = "@ThisVenue";
+            venueIdParameter.Value = _id;
+            cmd.Parameters.Add(venueIdParameter);
+
+            MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
+            List<Show> upcomingShows = new List<Show>{};
+
+            while(rdr.Read())
+            {
+              int showId = rdr.GetInt32(0);
+              int venueId = rdr.GetInt32(1);
+              int bandId = rdr.GetInt32(2);
+              Show newUpcomingShow = new Show(venueId, bandId, showId);
+              upcomingShows.Add(newUpcomingShow);
+            }
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+            return upcomingShows;
+        }
+
+        public void SetBandToPlayAtVenue(Band newBand)
+        {
+            MySqlConnection conn = DB.Connection();
+            conn.Open();
+            var cmd = conn.CreateCommand() as MySqlCommand;
+            cmd.CommandText = @"INSERT INTO shows (venue_id, band_id) VALUES (@VenueId, @BandId);";
+
+            MySqlParameter venue_id = new MySqlParameter();
+            venue_id.ParameterName = "@VenueId";
+            venue_id.Value = _id;
+            cmd.Parameters.Add(venue_id);
+
+            MySqlParameter band_id = new MySqlParameter();
+            band_id.ParameterName = "@BandId";
+            band_id.Value = newBand.GetId();
+            cmd.Parameters.Add(band_id);
+
+            cmd.ExecuteNonQuery();
+            conn.Close();
+            if (conn != null)
+            {
+                conn.Dispose();
+            }
+        }
     }
 }
