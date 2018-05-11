@@ -43,18 +43,18 @@ namespace BandTracker.Controllers
         {
             Venue venue = Venue.Find(Id);
             Band band = Band.Find(Int32.Parse(Request.Form["band-id"]));
-            venue.SetBandToPlayAtVenue(band); //Want to run the join table method
+            venue.SetBandToPlayAtVenue(band);
             return RedirectToAction("ViewVenues",  new { id = Id });
         }
 
-        [HttpGet("/arrivals/{id}/delete")]
+        [HttpGet("/venues/{id}/cancel")]
         public ActionResult Cancel(int id)
         {
             Dictionary<string, object> model = new Dictionary<string, object>();
             Show selectedShow = Show.Find(id);
             int venueId = selectedShow.GetVenueId();
             selectedShow.DeleteShow();
-            return RedirectToAction("ViewArrivals",  new { id = venueId });
+            return RedirectToAction("ViewVenues",  new { id = venueId });
 
 
         }

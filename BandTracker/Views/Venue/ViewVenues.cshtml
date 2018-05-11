@@ -12,9 +12,9 @@
 {
   <h4>Upcoming Shows at this Venue:</h4>
   <ul>
-    @foreach (var flight in @Model["flights"])
+    @foreach (var show in @Model["shows"])
     {
-      <li>@Band.Find(flight.GetBandId()).GetBand() <a href="/venues/@flight.GetId()/delete">Cancel</a></li>
+      <li>@Venue.Find(show.GetVenueId()).GetVenue() <a href="/venues/@show.GetId()/cancel">Cancel Show</a></li>
     }
   </ul>
 }
