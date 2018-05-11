@@ -1,0 +1,14 @@
+@{
+  Layout = "_Layout";
+}
+
+@using BandTracker.Models;
+
+<h3>Update Venue</h3>
+<form action="/update-this-venue" method="post">
+  <label for="venue-name-update">New Venue Name:</label>
+  <input id="venue-name-update" name="venue-name-update" type="text">
+  <button class="btn btn-primary" type="submit">Commit Changes</button>
+</form>
+<p><a href="/">Back home</a></p>
+<p><a href="/index">View all Venues</a></p>

@@ -58,18 +58,17 @@ namespace BandTracker.Controllers
         }
 
         [HttpGet("/venues/{id}/update")]
-        public ActionResult Update(int id)
+        public ActionResult UpdateForm(int id)
         {
-            Venue updateVenue = Venue.Find(id);
-            return View(updateVenue);
+            return View();
         }
-        [HttpPost("/venues/{id}/update")]
+        [HttpPost("update-this-venue")]
         public ActionResult Update(int id)
         {
-            string newVenueName = Request.Form["venue-name-update"];
-            Venue newVenue = new Venue(newVenueName, id);
-            newVenue.UpdateVenue(newVenueName);
-            return RedirectToAction("ViewVenues");
+          string newVenueName = Request.Form["venue-name-update"];
+          Venue newVenue = new Venue(newVenueName, id);
+          newVenue.UpdateVenue(newVenueName);
+          return RedirectToAction("ViewVenues");
         }
     }
 }
