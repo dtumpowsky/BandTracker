@@ -55,8 +55,21 @@ namespace BandTracker.Controllers
             int venueId = selectedShow.GetVenueId();
             selectedShow.DeleteShow();
             return RedirectToAction("ViewVenues",  new { id = venueId });
+        }
 
-
+        [HttpGet("/venues/{id}/update")]
+        public ActionResult Update(int id)
+        {
+            Venue updateVenue = Venue.Find(id);
+            return View(updateVenue);
+        }
+        [HttpPost("/venues/{id}/update")]
+        public ActionResult Update(int id)
+        {
+            string newVenueName = Request.Form["venue-name-update"];
+            Venue newVenue = new Venue(newVenueName, id);
+            newVenue.UpdateVenue(newVenueName);
+            return RedirectToAction("ViewVenues");
         }
     }
 }
