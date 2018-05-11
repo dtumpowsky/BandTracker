@@ -55,8 +55,26 @@ namespace BandTracker.Models
 
 //SQL Table Calls
 
+//Deletes all venues in database
+        public static void DeleteAll()
+        {
+           MySqlConnection conn = DB.Connection();
+           conn.Open();
+
+           var cmd = conn.CreateCommand() as MySqlCommand;
+           cmd.CommandText = @"DELETE FROM venues;";
+
+           cmd.ExecuteNonQuery();
+
+           conn.Close();
+           if (conn != null)
+           {
+               conn.Dispose();
+           }
+        }
+
 //Saves Venue to venues datatable
-        public void Save()
+        public void SaveVenue()
         {
             MySqlConnection conn = DB.Connection();
             conn.Open();
