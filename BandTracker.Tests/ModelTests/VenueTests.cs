@@ -11,7 +11,7 @@ namespace BandTracker.Tests
     {
         public VenueTests()
         {
-            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=band_tracker;";
+            DBConfiguration.ConnectionString = "server=localhost;user id=root;password=root;port=8889;database=band_tracker_test;";
         }
 
         public void Dispose()
